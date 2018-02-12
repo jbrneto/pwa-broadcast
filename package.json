@@ -1,0 +1,12 @@
+{
+  "name"         : "meanstack",
+  "version"      : "0.0.0",
+  "description"  : "A project using all tech of fullstack JS Mean.",
+  "main"         : "server.js",
+  "author"       : "Scotch",
+  "dependencies" : {
+    "express"    : "~4.7.2",
+    "mongoose"   : "~3.6.2",
+    "body-parser": "~1.18.2"
+    }
+}

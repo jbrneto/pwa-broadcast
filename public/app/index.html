@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-br" class="no-js">
+    <head>
+        <title>WebApp</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="WebApp">
+        <meta name="keywords" content="webapp, web, app">
+        <meta name="robots" content="index,follow">
+        <meta name="author" content="jbrneto">
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+      
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+      
+        <script type="text/javascript" src="app.module.js"></script>
+        <!-- Módulo de Menu -->
+        <script type="text/javascript" src="nav-menu/nav-menu.module.js"></script>
+        <script type="text/javascript" src="nav-menu/nav-menu.component.js"></script>
+        <!-- Módulo de Lista de Usuários -->
+        <script type="text/javascript" src="user-list/user-list.module.js"></script>
+        <script type="text/javascript" src="user-list/user-list.component.js"></script>
+        <!-- Módulo de Chat -->
+        <script type="text/javascript" src="chat/chat.module.js"></script>
+        <script type="text/javascript" src="chat/chat-messages/chat-messages.controller.js"></script>
+        <script type="text/javascript" src="chat/chat-private/chat-private.controller.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="MainController as main">
+    <header>
+      <nav-menu></nav-menu>
+    </header>
+    <section class="row">
+      <user-list class="col s12 m12 l4"></user-list>
+      <main class="col s12 m12 l8" ui-view></main>
+    </section>
+    <footer class="page-footer blue darken-3">Version:1 | Loading Time:{{main.loadingtime}}ms</footer>
+  </body>
+</html>
