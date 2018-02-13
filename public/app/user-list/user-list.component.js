@@ -2,9 +2,11 @@ angular
   .module('app.userList')
     .component('userList',{
       templateUrl: 'user-list/user-list.template.html',
-      controller: UserListController
+      controller: UserListController,
+      controllerAs: 'userList'
 });
 
-function UserListController(){
-  
+UserListController.$inject = ['UsersService'];
+function UserListController(UsersService){
+  this.users = UsersService.getUsers();
 }

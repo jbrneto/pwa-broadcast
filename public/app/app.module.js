@@ -14,15 +14,16 @@
   
   MainConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
   function MainConfig($stateProvider, $urlRouterProvider){
-    $urlRouterProvider.otherwise('/');
+    //$urlRouterProvider.otherwise('/');
     
     $stateProvider
     .state('chat', {
       url : '/',
+      abstract: true,
       templateUrl : 'chat/chat.template.html'
     })
     .state('chat.messages', {
-      url : '/messages',
+      url : '',
       templateUrl : 'chat/chat-messages/chat-messages.template.html',
       controller : 'ChatMessagesController',
       controllerAs : 'messages'
@@ -41,9 +42,9 @@
     });
   }
   
+ 
   function MainController(){
-    var main = this;
-    main.loadingtime = 500;
+    this.loadingtime = 500;
   }
   
 })(window.angular);
