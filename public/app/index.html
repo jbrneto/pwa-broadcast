@@ -26,10 +26,13 @@
         <script type="text/javascript" src="chat/chat.module.js"></script>
         <script type="text/javascript" src="chat/chat-messages/chat-messages.controller.js"></script>
         <script type="text/javascript" src="chat/chat-private/chat-private.controller.js"></script>
+        <!-- Módulo de Config -->
+        <script type="text/javascript" src="config/config.module.js"></script>
+        <script type="text/javascript" src="config/config.controller.js"></script>
         <!-- Services -->
         <script type="text/javascript" src="services/UsersService.js"></script>
   </head>
-  <body ng-app="app" ng-controller="MainController as main">
+  <body ng-app="app" ng-controller="MainController as main" window-manipulation>
     <header>
       <nav-menu></nav-menu>
     </header>

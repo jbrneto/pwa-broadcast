@@ -7,20 +7,23 @@
       // Custom modules
       'app.navMenu',
       'app.userList',
-      'app.chat'
+      'app.chat',
+      'app.config'
     ])
     .config(MainConfig)
     .controller('MainController', MainController);
   
   MainConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
   function MainConfig($stateProvider, $urlRouterProvider){
-    //$urlRouterProvider.otherwise('/');
     
     $stateProvider
     .state('chat', {
       url : '/',
       abstract: true,
-      templateUrl : 'chat/chat.template.html'
+      templateUrl : 'chat/chat.template.html',
+      resolve : {
+        userAuth: ['$state', UserAuth]
+      }
     })
     .state('chat.messages', {
       url : '',
@@ -40,9 +43,21 @@
       controller : 'ConfigController',
       controllerAs : 'config'
     });
+    
+    $urlRouterProvider.otherwise('/');
+    
+    
+    function UserAuth($state){
+      var user = window.localStorage.getItem("app-user");
+      if(user !== null){
+        return JSON.parse(user);
+      }else{
+        $state.go('config');
+      }
+    }
   }
+
   
- 
   function MainController(){
     this.loadingtime = 500;
   }

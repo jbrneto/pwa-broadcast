@@ -5,22 +5,26 @@ module.exports = function(router){
   var MessageController = require('./controllers/MessageController');
   
   router.route('/users')
-    .get(UserController.getAll());
+    .get(UserController.getAll);
+  
+  router.route('/user')
+    .post(UserController.saveUser)
   
   router.route('/user/:user_id')
-    .get(UserController.getUser())
-    .post(UserController.saveUser())
-    .put(UserController.editUser())
-    .delete(UserController.removeUser());
+    .get(UserController.getUser)
+    .put(UserController.editUser)
+    .delete(UserController.removeUser);
   
   router.route('/conversations')
-    .get(MessageController.getConversations());
+    .get(MessageController.getConversations);
   
   router.route('/broadcast')
-    .get(MessageController.getBroadcastMessages())
-    .post(MessageController.saveBroadcastMessage());
+    .get(MessageController.getBroadcastMessages)
+    .post(MessageController.saveBroadcastMessage);
+  
+  router.route('/messages')
+    .post(MessageController.saveConversationMessage);
   
   router.route('/messages/:user_id')
-    .get(MessageController.getConversationMessages())
-    .post(MessageController.saveConversationMessage());
+    .get(MessageController.getConversationMessages);
 }

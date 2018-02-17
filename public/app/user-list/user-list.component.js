@@ -8,5 +8,8 @@ angular
 
 UserListController.$inject = ['UsersService'];
 function UserListController(UsersService){
-  this.users = UsersService.getUsers();
+  UsersService.getUsers()
+    .then(function(response){
+      this.users = response;
+    });
 }

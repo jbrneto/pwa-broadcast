@@ -13,23 +13,53 @@ function UsersService($http){
   return service;
   
   function getUsers(){
-    $http({
+    return $http({
         method : "GET",
         url : "api/users"
     }).then(function(response) {
-        return response.data;
+        return response;
       
     }).catch(function(error) {
-       return error.errorText;
+       return error;
     });
   }
-  function addUser(){
-    
+  
+  function addUser(user){
+    return $http({
+        method : "POST",
+        url : "api/user",
+        data: JSON.stringify(user)
+    }).then(function(response) {
+        return response;
+      
+    }).catch(function(error) {
+       return error;
+    });
   }
-  function editUser(){
-    
+  
+  function editUser(user){
+    return $http({
+        method : "PUT",
+        url : "api/user/"+user.id,
+        data: JSON.stringify(user)
+    }).then(function(response) {
+        return response;
+      
+    }).catch(function(error) {
+       return error;
+    });
   }
-  function removeUser(){
-    
+  
+  function removeUser(user){
+    return $http({
+        method : "DELETE",
+        url : "api/user"+user.id
+    }).then(function(response) {
+        return response;
+      
+    }).catch(function(error) {
+       return error;
+    });
   }
+  
 }

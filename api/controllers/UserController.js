@@ -11,45 +11,65 @@ exports.editUser = editUser;
 exports.removeUser = removeUser;
 
 function getAll(req, res){
-  User.find({})
-  .then(function(users){
-    res.statusCode = 200;
-    res.send(users);
-  })
-  .catch(function(error){
-    res.statusCode = 501;
-    res.send('Failed to Get Users');
+  User.find({},function(error, users){
+    if(error){
+       res.statusCode = 501;
+      res.send(error);
+    }else{
+      res.statusCode = 200;
+      res.json(users);
+    }
   });
 }
 function getUser(req, res){
-  User.findOne({
-    _id: req.id
-  })
-  .then(function(users){
-    res.statusCode = 200;
-    res.send(users);
-  })
-  .catch(function(error){
-    res.statusCode = 501;
-    res.send('Failed to Get Users');
+  User.findById(
+    req.params.user_id,
+  function(error, user){
+    if(error){
+      res.statusCode = 501;
+      res.send(error);
+    }else{
+      res.statusCode = 200;
+      res.json(user);
+    }
   });
 }
 function saveUser(req, res){
-  User.insertOne({
-    name: req.name
-  })
-  .then(function(){
-    res.statusCode = 200;
-    res.send('User Created');
-  })
-  .catch(function(error){
-    res.statusCode = 501;
-    res.send('Failed to Created User');
+  var user = new User(req.body);
+  user.save(function(error, user){
+    if(error){
+      res.statusCode = 501;
+      res.send(error);
+    }else{
+      res.statusCode = 200;
+      res.json(user);
+    }
   });
 }
 function editUser(req, res){
-  
+  User.findByIdAndUpdate(
+    req.params.user_id,
+    req.body,
+  function(error, user){
+    if(error){
+      res.statusCode = 501;
+      res.send(error);
+    }else{
+      res.statusCode = 200;
+      res.json(user);
+    }
+  });
 }
 function removeUser(req, res){
-  
+  User.findByIdAndRemove(
+    req.params.user_id, 
+  function(error, user) {
+    if(error){
+      res.statusCode = 501;
+      res.send(error);
+    }else{
+      res.statusCode = 200;
+      res.json(user);
+    }
+  });
 }
