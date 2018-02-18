@@ -1,0 +1,16 @@
+{
+  "name": "meanstack",
+  "homepage": "https://github.com/jbrneto/",
+  "authors": [
+    "jbrneto"
+  ],
+  "description": "A project using all tech of fullstack JS Mean.",
+  "main": "index.html",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.6.9",
+    "angular-ui-router": "^1.0.15",
+    "materialize": "^0.100.2",
+    "socket.io-client": "^2.0.4"
+  }
+}

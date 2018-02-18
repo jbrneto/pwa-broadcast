@@ -1,7 +1,7 @@
 <h2>Config</h2>
 <form name="configForm">
   <label>Name:</label><input id="name" class="validade" type="text" ng-disable="!config.submited" ng-model="config.name" required>
-  <button class="btn blue" ng-show="!config.submited" ng-click="config.submit(configForm)">Register</button>
+  <button class="btn blue" ng-show="!config.submited && !config.success" ng-click="config.submit(configForm)">Register</button>
 </form>
 <div ng-show="config.submited" class="progress">
     <div class="indeterminate blue"></div>

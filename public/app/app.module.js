@@ -59,7 +59,7 @@
 
   
   function MainController(){
-    this.loadingtime = 500;
+    this.loadingtime = (Date.now() - window.loadingTime);
   }
   
 })(window.angular);

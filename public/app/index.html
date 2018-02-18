@@ -9,13 +9,20 @@
         <meta name="robots" content="index,follow">
         <meta name="author" content="jbrneto">
       
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <script>
+          window.loadingTime = Date.now();
+        </script>
       
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+      
+        <!-- Dependencies -->
+        <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css">
+        <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script type="text/javascript" src="bower_components/socket.io-client/dist/socket.io.js"></script>
+      
       
         <script type="text/javascript" src="app.module.js"></script>
+        <script type="text/javascript" src="app.directive.js"></script>
         <!-- Módulo de Menu -->
         <script type="text/javascript" src="nav-menu/nav-menu.module.js"></script>
         <script type="text/javascript" src="nav-menu/nav-menu.component.js"></script>
@@ -31,6 +38,7 @@
         <script type="text/javascript" src="config/config.controller.js"></script>
         <!-- Services -->
         <script type="text/javascript" src="services/UsersService.js"></script>
+        <script type="text/javascript" src="services/WebSocketService.js"></script>
   </head>
   <body ng-app="app" ng-controller="MainController as main" window-manipulation>
     <header>

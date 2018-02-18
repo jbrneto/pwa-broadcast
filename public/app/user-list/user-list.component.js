@@ -6,10 +6,10 @@ angular
       controllerAs: 'userList'
 });
 
-UserListController.$inject = ['UsersService'];
-function UserListController(UsersService){
-  UsersService.getUsers()
-    .then(function(response){
-      this.users = response;
-    });
+UserListController.$inject = ['WebSocketService'];
+function UserListController(WebSocketService){
+  var userList = this;
+  WebSocketService.on('users:change', function(users){
+    userList.users = users;
+  });
 }
