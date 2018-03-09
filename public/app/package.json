@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@bower_components/angular": "angular/bower-angular#1.6.9",
+    "@bower_components/angular-ui-router": "angular-ui/angular-ui-router-bower#^1.0.15",
+    "@bower_components/jquery": "jquery/jquery-dist#^3.0.0 || ^2.1.4",
+    "@bower_components/materialize": "Dogfalo/materialize#^0.100.2",
+    "@bower_components/socket.io-client": "LearnBoost/socket.io-client#^2.0.4"
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
+  }
+}
