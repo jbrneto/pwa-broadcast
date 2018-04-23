@@ -5,12 +5,12 @@ module.exports = function(server){
   
   // Function to update user on in client side
   function usersChange(users){
-    io.broadcast.emit('users:change', users);
+    io.emit('users:change', users);
   }
   
   // Function to send to all users a broadcast message
   function broadCastMessage(message){
-    io.broadcast.emit('broadcast:message', message);
+    io.emit('broadcast:message', message);
   }
   
   // Function to send a message for a specific user

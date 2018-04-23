@@ -7,7 +7,7 @@
   </li>
   <li class="collection-item" ng-repeat="user in userList.users">
     <div>
-      <a href="#!/private/{{user.id}}">
+      <a href="#!/private/{{user._id}}">
         {{user.name}}
         <i class="secondary-content" ng-show="{{user.hasNotRead}}">{{user.notReadCount}}</i>
       </a>

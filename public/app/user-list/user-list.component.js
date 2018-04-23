@@ -6,10 +6,21 @@ angular
       controllerAs: 'userList'
 });
 
-UserListController.$inject = ['WebSocketService'];
-function UserListController(WebSocketService){
+UserListController.$inject = ['UsersService','WebSocketService'];
+function UserListController(UsersService, WebSocketService){
   var userList = this;
-  WebSocketService.on('users:change', function(users){
-    userList.users = users;
-  });
+  
+  userList.users = [];
+  
+  userList.users = UsersService.getUsers().then(userListRequestManager);
+  WebSocketService.on('users:change', userListRequestManager);
+  
+  function userListRequestManager(response){
+    if(response.status >= 500){
+      console.warn(response.error);
+    }else if (response.status === 200){
+      userList.users = response.data;
+    }
+  }
+  
 }

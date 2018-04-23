@@ -1,0 +1,34 @@
+<!-- Create Account Form -->
+<form name="accountForm" ng-show="!profile.isRegistered">
+  <p><a href="#!/config/login">Already has a login?</a></p>
+  <label for="accountName">Name:</label>
+  <input id="accountName" class="validade" type="text" ng-disable="!profile.submited" ng-model="profile.name" required>
+  <label for="accountEmail">E-mail:</label>
+  <input id="accountEmail" class="validade" type="email" ng-disable="!profile.submited" ng-model="profile.email" required>
+  <label for="accountPassword">Password:</label>
+  <input id="accountPassword" class="validade" type="password" ng-disable="!profile.submited" ng-model="profile.password">
+  <label for="accountConfirmPassword">Confirm Password:</label>
+  <input id="accountConfirmPassword" class="validade" type="password" ng-disable="!profile.submited" ng-model="profile.confirmPassword">
+  <button class="btn blue" ng-show="!profile.submited && !profile.success" ng-click="profile.submit(accountForm)">Create</button>
+</form>
+
+<!-- Change Account Data Form -->
+<form name="profileForm" ng-show="profile.isRegistered">
+  <label for="name">Name:</label>
+  <input id="name" class="validade" type="text" ng-disable="!profile.submited" ng-model="profile.name" required>
+  <label for="email">E-mail:</label>
+  <input id="email" class="validade" type="email" ng-disable="!profile.submited" ng-model="profile.email" required>
+  <p class="blue-text">Don't fill the fields below if you don't want to change your password.</p>
+  <label for="password">Password:</label>
+  <input id="password" class="validade" type="password" ng-disable="!profile.submited" ng-model="profile.password">
+  <label for="confirmPassword">Confirm Password:</label>
+  <input id="confirmPassword" class="validade" type="password" ng-disable="!profile.submited" ng-model="profile.confirmPassword">
+  <button class="btn blue" ng-show="!profile.submited" ng-click="profile.submit(profileForm)">Save</button>
+</form>
+
+<div ng-show="profile.submited" class="progress">
+    <div class="indeterminate blue"></div>
+</div>
+<h4 ng-show="profile.error" class="red-text">Error!</h4>
+<h4 ng-show="profile.error_pass" class="red-text">Error, the passwords are not equal!</h4>
+<h4 ng-show="profile.success" class="green-text">Success!</h4>

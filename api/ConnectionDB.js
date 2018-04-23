@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var dbUrl = 'mongodb://127.0.0.1:27017/test';
+var dbUrl = 'mongodb://localhost:27017/meanstack';
 var db = null;
 
 var openConection = function(){
@@ -14,10 +14,7 @@ var openConection = function(){
 }
 
 var closeConection = function(){
-  if(db){
-     db.disconnect();
-  }
-  mongoose.disconnect();
+  mongoose.connection.close();
   console.log('Mongo DB Disconnected!\n');
 }
 

@@ -22,7 +22,7 @@
       abstract: true,
       templateUrl : 'chat/chat.template.html',
       resolve : {
-        userAuth: ['$state', UserAuth]
+        userAuth: ['$state', '$timeout', UserAuth]
       }
     })
     .state('chat.messages', {
@@ -39,22 +39,51 @@
     })
     .state('config', {
       url : '/config',
+      abstract: true,
       templateUrl : 'config/config.template.html',
-      controller : 'ConfigController',
-      controllerAs : 'config'
+      resolve : {
+        userAuth: ['$state', '$timeout', UserAuth]
+      }
+    })
+    .state('config.profile', {
+      url : '',
+      templateUrl : 'config/config-profile/config-profile.template.html',
+      controller : 'ConfigSignupController',
+      controllerAs : 'profile'
+    })
+    .state('config.login', {
+      url : '/login',
+      templateUrl : 'config/config-login/config-login.template.html',
+      controller : 'ConfigLoginController',
+      controllerAs : 'login'
+    })
+    .state('logout', {
+      url : '/logout',
+      resolve : {
+        logout: ['$state', Logout ]
+      }
     });
     
     $urlRouterProvider.otherwise('/');
     
-    
-    function UserAuth($state){
-      var user = window.localStorage.getItem("app-user");
+    UserAuth.$inject = ['$state', '$timeout'];
+    function UserAuth($state, $timeout){
+      var user = localStorage.getItem("app-user");
       if(user !== null){
         return JSON.parse(user);
       }else{
-        $state.go('config');
+        $timeout(function(){
+         $state.go('config.login');
+        });
       }
     }
+    
+    Logout.$inject = ['$state'];
+    function Logout($state){
+      localStorage.clear();
+      $state.go('config.login');
+    }
+    
   }
 
   

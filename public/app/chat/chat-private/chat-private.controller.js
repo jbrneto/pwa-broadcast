@@ -2,6 +2,7 @@ angular
   .module('app.chat')
   .controller('ChatPrivateController', ChatPrivateController);
 
-function ChatPrivateController(){
+ChatMessagesController.$inject = ['userAuth'];
+function ChatPrivateController(userAuth){
   console.log('aa');
 }

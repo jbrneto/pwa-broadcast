@@ -1,0 +1,14 @@
+<a href="#!/config">Have no login yet?</a>
+<form name="loginForm">
+  <label for="email">E-mail:</label>
+  <input id="email" class="validade" type="email" ng-disable="!login.submited" ng-model="login.email" required>
+  <label>Password:</label>
+  <input id="password" class="validade" type="password" ng-disable="!login.submited" ng-model="login.password" required>
+  <button class="btn blue" ng-show="!login.submited && !login.success" ng-click="login.submit(loginForm)">Login</button>
+</form>
+<div ng-show="login.submited" class="progress">
+    <div class="indeterminate blue"></div>
+</div>
+<h4 ng-show="login.error" class="red-text">Error!</h4>
+<h4 ng-show="login.invalid" class="red-text">Invalid Email or Password!</h4>
+<h4 ng-show="login.success" class="green-text">Success!</h4>
