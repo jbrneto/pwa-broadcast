@@ -1,7 +1,18 @@
-<ul class="collection">
-  <li class="collection-item avatar">
-    <span class="title">John Doe</span>
-    <p><b>Message</b></p>
-    <a href="#!" class="secondary-content"><i>5</i></a>
-  </li>
-</ul>
+<h5>Chat</h5>
+<form name="chatForm">
+  <div class="col-md-12">
+    <div class="collection">
+      <p class="collection-item grey lighten-2 left clearfix">Test</p>
+      <p class="collection-item green accent-3 right clearfix">Test</p>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <textarea class="validade materialize-textarea" type="text" ng-model="chat.message" placeholder="Write your message here" required></textarea>
+    <button class="btn blue" ng-click="chat.submit(chatForm)">Send</button>
+  </div>
+</form>
+<div ng-show="login.submited" class="progress">
+    <div class="indeterminate blue"></div>
+</div>
+<h4 ng-show="chat.offline" class="orange-text">No Internet Connection!</h4>
+<h4 ng-show="chat.error" class="red-text">Error to sent Message!</h4>

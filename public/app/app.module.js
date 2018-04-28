@@ -32,7 +32,7 @@
       controllerAs : 'messages'
     })
     .state('chat.private', {
-      url : '/private',
+      url : 'private/:id_user',
       templateUrl : 'chat/chat-private/chat-private.template.html',
       controller : 'ChatPrivateController',
       controllerAs : 'private'
