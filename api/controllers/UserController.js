@@ -20,9 +20,7 @@ function __getAll(callback){
 
 function _getAll(callback){
   __getAll(function(error, users){
-    var res = {};
-    dbResponseHandler(res, error, users);
-    callback(res.locals.resobj.response);
+    callback(users);
    });
 }
 

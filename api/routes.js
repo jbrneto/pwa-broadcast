@@ -25,18 +25,17 @@ module.exports = function(router, websocket){
     .delete(UserController.removeUser)
     .all(socketUserMiddleware);
   
-  router.route('/conversations')
+  router.route('/conversations/:user_id')
     .get(MessageController.getConversations);
   
   router.route('/broadcast')
-    .get(MessageController.getBroadcastMessages)
-    .post(MessageController.saveBroadcastMessage);
+    .post(MessageController.sendBroadcastMessage)
+    .all(socketBroadcastMessageMiddleware);
   
   router.route('/messages')
-    .post(MessageController.saveConversationMessage);
-  
-  router.route('/messages/:user_id')
-    .get(MessageController.getConversationMessages);
+    .get(MessageController.getConversationMessages)
+    .post(MessageController.saveConversationMessage)
+    .post(socketPrivateMessageMiddleware);
   
   router.use(function(req, res, next) {
     res.statusCode = res.locals.resobj.status;
@@ -44,13 +43,27 @@ module.exports = function(router, websocket){
     next();
   });
   
-  // Socket comunication middleware
+  // User Socket comunication middleware
   function socketUserMiddleware(req, res, next){
     if(res.statusCode == 200){
        UserController._getAll(function(response){
          websocket.usersChange(response);
        });
     }
+    next();
+  }
+  
+  // Private Message Socket comunication middleware
+  function socketPrivateMessageMiddleware(req, res, next){
+    if(res.statusCode == 200){
+       websocket.sendPrivateMessage(res.response);
+    }
+    next();
+  }
+  
+  // Broadcast Message Socket comunication middleware
+  function socketBroadcastMessageMiddleware(req, res, next){
+    websocket.broadCastMessage(res.response);
     next();
   }
 }
