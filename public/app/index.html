@@ -23,6 +23,9 @@
             border-radius: 20px;
             padding: 10px 20px !important;
           }
+          .page-footer{
+            padding-left: 5px;
+          }
         </style>
       
         <!-- Dependencies -->
@@ -50,6 +53,7 @@
         <script type="text/javascript" src="config/config-profile/config-profile.controller.js"></script>
         <!-- Services -->
         <script type="text/javascript" src="services/UsersService.js"></script>
+        <script type="text/javascript" src="services/MessageService.js"></script>
         <script type="text/javascript" src="services/WebSocketService.js"></script>
   </head>
   <body ng-app="app" ng-controller="MainController as main" window-manipulation>
@@ -60,6 +64,6 @@
       <user-list class="col s12 m12 l4"></user-list>
       <main class="col s12 m12 l8" ui-view></main>
     </section>
-    <footer class="page-footer blue darken-3">Version:1 | Loading Time:{{main.loadingtime}}ms</footer>
+    <footer class="page-footer blue darken-3">Version: 1 | Loading Time: {{main.loadingtime}}ms ❤</footer>
   </body>
 </html>

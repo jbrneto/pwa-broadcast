@@ -2,14 +2,16 @@
   <li class="collection-header"><h4>Users</h4></li>
   <li class="collection-item blue lighten-5">
     <div>
-      <a href="#!/">Broadcast<i class="secondary-content">12</i></a>
+      <a href="#!/">Broadcast
+        <i ng-show="userList.broadcastCount > 0" class="secondary-content">{{userList.broadcastCount}}</i>
+      </a>
     </div>
   </li>
   <li class="collection-item" ng-repeat="user in userList.users">
     <div>
       <a href="#!/private/{{user._id}}">
         {{user.name}}
-        <i class="secondary-content" ng-show="{{user.hasNotRead}}">{{user.notReadCount}}</i>
+        <i class="secondary-content" ng-show="user.notReadCount > 0">{{user.notReadCount}}</i>
       </a>
     </div>
   </li>
