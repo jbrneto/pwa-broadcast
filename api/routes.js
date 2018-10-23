@@ -34,8 +34,8 @@ module.exports = function(router, websocket){
   
   router.route('/messages')
     .get(MessageController.getConversationMessages)
-    .post(MessageController.saveConversationMessage)
-    .post(socketPrivateMessageMiddleware);
+    .post(MessageController.saveConversationMessage);
+    //.post(socketPrivateMessageMiddleware);
   
   router.use(function(req, res, next) {
     res.statusCode = res.locals.resobj.status;

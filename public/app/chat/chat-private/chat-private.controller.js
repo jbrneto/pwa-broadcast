@@ -2,7 +2,7 @@ angular
   .module('app.chat')
   .controller('ChatPrivateController', ChatPrivateController);
 
-ChatMessagesController.$inject = ['userAuth', '$state', '$stateParams', 'MessageService','WebSocketService'];
+ChatPrivateController.$inject = ['userAuth', '$state', '$stateParams', 'MessageService','WebSocketService'];
 function ChatPrivateController(userAuth, $state, $stateParams, MessageService, WebSocketService){
   var private = this;
   private.messages = [];
@@ -37,10 +37,12 @@ function ChatPrivateController(userAuth, $state, $stateParams, MessageService, W
         sender: userAuth._id, 
         receiver: $stateParams.id_user,
         message: private.message,
-        date: new Date()
+        date: new Date().toString()
       };
       
-      MessageService.getUserLogin(messageObj)
+      
+      MessageService
+        .sendConversationMessage(messageObj)
         .then(function(response){
           private.submited = false;
 

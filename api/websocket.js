@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = function(server){
-  var io  = require('socket.io').listen(server);
+  var io  = require('socket.io').listen(server),
+      connectedUsers = [];
   
   // Function to update user on in client side
   function usersChange(users){

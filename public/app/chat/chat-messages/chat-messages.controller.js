@@ -10,5 +10,10 @@ function ChatMessagesController(userAuth, MessageService, WebSocketService){
   
   //WebSocketService.on('users:change', userListRequestManager);
   
-  //MessageService.getConversations(userAuth._id).then();
+  MessageService
+    .getConversations(userAuth._id)
+    .then(function(response){
+    console.log(response.data);
+      messages.conversations = response.data;
+  });
 }

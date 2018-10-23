@@ -10,16 +10,16 @@ exports.saveConversationMessage = saveConversationMessage;
 exports.sendBroadcastMessage = sendBroadcastMessage;
 
 function getConversations(req, res, next){
-  Message.find({
-    $or: [
-      {
-        sender: req.query.user_id
-      },
-      {
-        receiver: req.query.user_id
-      },
-    ]
-  },function(error, messages){
+  Message.aggregate([
+    { $lookup: 
+       {
+        from: 'users',
+        localField: 'sender',
+        foreignField: '_id',
+        as: 'name'
+      }
+    }])
+  .exec(function(error, messages){
     dbResponseHandler(res, error, messages);
     next();
   });
@@ -37,7 +37,7 @@ function getConversationMessages(req, res, next){
       receiver: 1,
       message: 1,
       date: 1,
-      isMine: { $eq: [ "$sender", req.query.user1 ] }
+      isMine: { $eq: [ '$sender', req.query.user1 ] }
     })
     .exec(function(error, messages){
       dbResponseHandler(res, error, messages);
