@@ -1,10 +1,12 @@
 <p class="center" ng-show="messages.conversations.length == 0">No conversations to show.</p>
 <ul class="collection" ng-repeat="conversation in messages.conversations">
-  <li class="collection-item avatar">
-    <span class="title">{{conversation.name}}</span>
-    <p><b>{{conversation.lastUnread}}</b></p>
-    <a href="#!" class="secondary-content">
-      <i>{{conversation.countUnread}}</i>
-    </a>
-  </li>
+  <a href="#!/private/{{conversation.sender._id}}">
+    <li class="collection-item avatar">
+      <span class="title">{{conversation.sender.name}}</span>
+      <p><b>{{conversation.message}}</b></p>
+      <span class="secondary-content">
+        <i>{{conversation.countUnread}}</i>
+      </span>
+    </li>
+  </a>
 </ul>

@@ -16,7 +16,19 @@ function getConversations(req, res, next){
         from: 'users',
         localField: 'sender',
         foreignField: '_id',
-        as: 'name'
+        as: 'sender'
+      }
+    },
+    {
+      $unwind: '$sender'
+    },
+    {
+      $project:
+      {
+        date: 1,
+        message: 1,
+        "sender._id": 1,
+        "sender.name": 1
       }
     }])
   .exec(function(error, messages){
