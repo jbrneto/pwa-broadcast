@@ -13,7 +13,6 @@ function ChatMessagesController(userAuth, MessageService, WebSocketService){
   MessageService
     .getConversations(userAuth._id)
     .then(function(response){
-    console.log(response.data);
       messages.conversations = response.data;
   });
 }

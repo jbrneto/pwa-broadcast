@@ -51,6 +51,7 @@ function ChatPrivateController(userAuth, $state, $stateParams, MessageService, W
             private.error = true;  
           }else if (response.status === 200){
             private.message = "";
+            messageObj.isMine = true;
             private.messages.push(messageObj);
           }
         })

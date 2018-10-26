@@ -41,8 +41,8 @@ function getConversationMessages(req, res, next){
   Message
     .aggregate()
     .match({
-      sender: req.query.user1,
-      receiver: req.query.user2
+      sender: mongoose.Types.ObjectId(req.query.user1),
+      receiver: mongoose.Types.ObjectId(req.query.user2)
     })
     .project({
       sender: 1,
