@@ -57,15 +57,23 @@ function getConversationMessages(req, res, next){
   Message
     .aggregate()
     .match({
-      sender: mongoose.Types.ObjectId(req.query.user1),
-      receiver: mongoose.Types.ObjectId(req.query.user2)
+      $or: [
+        {
+          sender: mongoose.Types.ObjectId(req.query.user1),
+          receiver: mongoose.Types.ObjectId(req.query.user2)
+        },
+        {
+          sender: mongoose.Types.ObjectId(req.query.user2),
+          receiver: mongoose.Types.ObjectId(req.query.user1)
+        }
+      ]
     })
     .project({
       sender: 1,
       receiver: 1,
       message: 1,
       date: 1,
-      isMine: { $eq: [ '$sender', req.query.user1 ] }
+      isMine: { $eq: [ '$sender', mongoose.Types.ObjectId(req.query.user1) ] }
     })
     .exec(function(error, messages){
       dbResponseHandler(res, error, messages);
