@@ -11,10 +11,26 @@ exports.sendBroadcastMessage = sendBroadcastMessage;
 
 function getConversations(req, res, next){
   Message.aggregate([
+    {
+      $match: { 
+        receiver: mongoose.Types.ObjectId(req.params.user_id)
+      }
+    },
+    {
+      $sort: { 'date': -1 }
+    },
+    {
+      $group: 
+        { 
+          _id: '$sender',
+          date: { $first: '$date' },
+          message: { $first: '$message' }
+        }
+    },
     { $lookup: 
        {
         from: 'users',
-        localField: 'sender',
+        localField: '_id',
         foreignField: '_id',
         as: 'sender'
       }
