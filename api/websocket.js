@@ -2,7 +2,7 @@
 
 module.exports = function(server){
   var io  = require('socket.io').listen(server),
-      connectedUsers = [];
+      connectedClients = [];
   
   // Function to update user on in client side
   function usersChange(users){
@@ -15,13 +15,25 @@ module.exports = function(server){
   }
   
   // Function to send a message for a specific user
-  function sendPrivateMessage(session_id, message){
-    io.clients[session_id].emit('private:message', message);
+  function sendPrivateMessage(client_id, message){
+    console.log(client_id);
+    connectedClients[client_id].emit('private:message', message);
   }
+  
+  // Function to assign a new name to a socket connection
+  function resetClientId(old_id, new_id) {
+    connectedClients[new_id] = connectedClients[old_id];
+    delete connectedClients[old_id];
+  }
+  
+  io.on('connection', function(socket){
+    connectedClients[socket.id] = socket;
+  });
   
   return {
     usersChange: usersChange,
     broadCastMessage: broadCastMessage,
-    sendPrivateMessage: sendPrivateMessage
+    sendPrivateMessage: sendPrivateMessage,
+    resetClientId: resetClientId
   }
 }

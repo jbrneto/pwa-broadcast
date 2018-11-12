@@ -10,6 +10,15 @@ function ChatPrivateController(userAuth, $state, $stateParams, MessageService, W
   private.error = false;
   private.offline = false;
   
+  WebSocketService.on('private:message', privateMassageManager);
+  function privateMassageManager(response){
+    if(response.status >= 500){
+      console.warn(response.error);
+    }else if (response.status === 200){
+      
+    }
+  }
+  
   if(!$stateParams.id_user){
     $state.go('chat.messages');
   }else{

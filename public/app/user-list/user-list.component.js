@@ -38,12 +38,12 @@ function UserListController(UsersService, WebSocketService){
     if(response.status >= 500){
       console.warn(response.error);
     }else if (response.status === 200){
-      for (var user in userList.users) {
+      /*for (var user in userList.users) {
         if (user._id == response.data._id_sender) {
           user.notReadCount++;
           break;
         }
-      }
+      }*/
     }
   }
   

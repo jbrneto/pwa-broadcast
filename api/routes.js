@@ -13,7 +13,12 @@ module.exports = function(router, websocket){
     .get(UserController.getAll);
   
   router.route('/login')
-    .get(UserController.getUserLogin);
+    .get(UserController.getUserLogin)
+    .get(socketLoginMiddleware);
+  
+  router.route('/login/:user_id')
+    .put(UserController.getUser)
+    .put(socketLoginMiddleware);
   
   router.route('/user')
     .post(UserController.saveUser)
@@ -34,8 +39,8 @@ module.exports = function(router, websocket){
   
   router.route('/messages')
     .get(MessageController.getConversationMessages)
-    .post(MessageController.saveConversationMessage);
-    //.post(socketPrivateMessageMiddleware);
+    .post(MessageController.saveConversationMessage)
+    .post(socketPrivateMessageMiddleware);
   
   router.use(function(req, res, next) {
     res.statusCode = res.locals.resobj.status;
@@ -43,9 +48,18 @@ module.exports = function(router, websocket){
     next();
   });
   
+  // Login Socket comunication middleware
+  function socketLoginMiddleware(req, res, next){
+    if (res.locals.resobj.response.status === 200) {
+        var old_id = (!!req.query.socket_id) ? req.query.socket_id : req.body.socket_id;
+        websocket.resetClientId(old_id, res.locals.resobj.response.data._id);
+    }
+    next();
+  }
+  
   // User Socket comunication middleware
   function socketUserMiddleware(req, res, next){
-    if(res.statusCode == 200){
+    if (res.locals.resobj.response.status === 200) {
        UserController._getAll(function(response){
          websocket.usersChange(response);
        });
@@ -55,8 +69,8 @@ module.exports = function(router, websocket){
   
   // Private Message Socket comunication middleware
   function socketPrivateMessageMiddleware(req, res, next){
-    if(res.statusCode == 200){
-       websocket.sendPrivateMessage(res.response);
+    if (res.locals.resobj.response.status === 200) {
+       websocket.sendPrivateMessage(req.body.receiver, res.response);
     }
     next();
   }

@@ -22,7 +22,7 @@
       abstract: true,
       templateUrl : 'chat/chat.template.html',
       resolve : {
-        userAuth: ['$state', '$timeout', UserAuth]
+        userAuth: ['$rootScope', '$state', '$timeout', 'UsersService', UserAuth]
       }
     })
     .state('chat.messages', {
@@ -42,7 +42,7 @@
       abstract: true,
       templateUrl : 'config/config.template.html',
       resolve : {
-        userAuth: ['$state', '$timeout', UserAuth]
+        userAuth: ['$rootScope', '$state', '$timeout', 'UsersService', UserAuth]
       }
     })
     .state('config.profile', {
@@ -66,15 +66,31 @@
     
     $urlRouterProvider.otherwise('/');
     
-    UserAuth.$inject = ['$state', '$timeout'];
-    function UserAuth($state, $timeout){
-      var user = localStorage.getItem("app-user");
-      if(user !== null){
-        return JSON.parse(user);
+    UserAuth.$inject = ['$rootScope', '$state', '$timeout', 'UsersService'];
+    function UserAuth($rootScope, $state, $timeout, UsersService){
+      if($rootScope.login){
+        return $rootScope.login;
       }else{
-        $timeout(function(){
-         $state.go('config.login');
-        });
+        var user = JSON.parse(localStorage.getItem("app-user"));
+        if(user !== null){
+          return UsersService
+            .validateUserLogin(user)
+            .then(function(response){
+              if(response.status === 200){
+                 return response.data;
+              }else{
+                 $timeout(function(){
+                   $state.go('config.login');
+                 });
+              }
+            });
+          //console.log('aaa');
+          //return JSON.parse(user);
+        }else{
+          $timeout(function(){
+           $state.go('config.login');
+          });
+        }
       }
     }
     

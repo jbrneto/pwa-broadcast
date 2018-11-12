@@ -2,8 +2,8 @@ angular
   .module('app.config')
   .controller('ConfigLoginController', ConfigLoginController);
 
-ConfigLoginController.$inject = ['$state','UsersService'];
-function ConfigLoginController($state, UsersService){
+ConfigLoginController.$inject = ['$rootScope', '$state','UsersService'];
+function ConfigLoginController($rootScope, $state, UsersService){
   var login = this;
   
   login.submited = false;
@@ -31,6 +31,7 @@ function ConfigLoginController($state, UsersService){
           login.invalid = true;
         }else if (response.status === 200){
           login.success = true;
+          $rootScope.login = response.data;
           if(window.localStorage.getItem("app-user") == null){
              window.localStorage.setItem("app-user", JSON.stringify(response.data));
              $state.go('chat.messages');
