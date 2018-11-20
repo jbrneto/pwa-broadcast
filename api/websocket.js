@@ -16,7 +16,6 @@ module.exports = function(server){
   
   // Function to send a message for a specific user
   function sendPrivateMessage(client_id, message){
-    console.log(client_id);
     connectedClients[client_id].emit('private:message', message);
   }
   

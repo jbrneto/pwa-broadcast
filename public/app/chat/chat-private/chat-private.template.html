@@ -4,13 +4,20 @@
     <p class="center" ng-show="private.messages.length == 0">No messages to show.</p>
     <div class="collection" ng-repeat="message in private.messages">
       <p class="collection-item clearfix" 
-         ng-class="{{message.isMine}} ? 'green accent-3 right' : 'grey lighten-2 left'">
+         ng-class="message.isMine ? 'green accent-3 right' : 'grey lighten-2 left'">
         {{message.message}}
       </p>
     </div>
   </div>
   <div class="col-md-12">
-    <textarea class="validade materialize-textarea" type="text" ng-model="private.message" placeholder="Write your message here" required></textarea>
+    <textarea 
+      class="validade materialize-textarea" 
+      type="text" 
+      ng-model="private.message"
+      ng-keyup="private.typedMessage($event)"
+      placeholder="Write your message here" 
+      required>
+    </textarea>
     <button class="btn blue" ng-click="private.submit(privateForm)">Send</button>
   </div>
 </form>

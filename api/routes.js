@@ -70,14 +70,14 @@ module.exports = function(router, websocket){
   // Private Message Socket comunication middleware
   function socketPrivateMessageMiddleware(req, res, next){
     if (res.locals.resobj.response.status === 200) {
-       websocket.sendPrivateMessage(req.body.receiver, res.response);
+       websocket.sendPrivateMessage(req.body.receiver, res.locals.resobj.response);
     }
     next();
   }
   
   // Broadcast Message Socket comunication middleware
   function socketBroadcastMessageMiddleware(req, res, next){
-    websocket.broadCastMessage(res.response);
+    websocket.broadCastMessage(res.locals.resobj.response);
     next();
   }
 }
