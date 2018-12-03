@@ -31,11 +31,9 @@ function ConfigLoginController($rootScope, $state, UsersService){
           login.invalid = true;
         }else if (response.status === 200){
           login.success = true;
-          $rootScope.login = response.data;
-          if(window.localStorage.getItem("app-user") == null){
-             window.localStorage.setItem("app-user", JSON.stringify(response.data));
-             $state.go('chat.messages');
-          }
+          $rootScope.login = response.data[0];
+          window.localStorage.setItem("app-user", JSON.stringify(response.data[0]));
+          $state.go('chat.messages');
         }
       })
       .catch(function(error){

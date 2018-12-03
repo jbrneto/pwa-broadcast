@@ -77,7 +77,7 @@
             .validateUserLogin(user)
             .then(function(response){
               if(response.status === 200){
-                 return response.data;
+                 return response.data[0];
               }else{
                  $timeout(function(){
                    $state.go('config.login');

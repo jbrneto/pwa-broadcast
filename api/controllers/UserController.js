@@ -15,13 +15,19 @@ exports.removeUser = removeUser;
 
 // Util function to Fetch all users
 function __getAll(callback){
-  User.find({}, callback);
+  User
+    .aggregate()
+    .project({
+      name: 1,
+      email: 1
+    })
+    .exec(callback);
 }
 
 function _getAll(callback){
   __getAll(function(error, users){
     callback(users);
-   });
+  });
 }
 
 function getAll(req, res, next){
@@ -32,19 +38,33 @@ function getAll(req, res, next){
 }
 
 function getUser(req, res, next){
-  User.findById(
-    req.params.user_id,
-  function(error, user){
-    dbResponseHandler(res, error, user);
-    next();
-  });
+  User
+    .aggregate()
+    .match({
+      _id: mongoose.Types.ObjectId(req.params.user_id)
+    })
+    .project({
+      name: 1,
+      email: 1
+    })
+    .exec(function(error, user){
+      dbResponseHandler(res, error, user);
+      next();
+    });
 }
 
 function getUserLogin(req, res, next){
-  User.findOne({
+  User
+  .aggregate()
+  .match({
     email: req.query.email,
     password: _encrypt(req.query.password)
-  },function(error, user){
+  })
+  .project({
+    name: 1,
+    email: 1
+  })
+  .exec(function(error, user){
     dbResponseHandler(res, error, user);
     next();
   });
@@ -106,23 +126,9 @@ function dbResponseHandler(res, error, data){
     response: {
       status: internalStatus,
       error: error,
-      data: clearSensitiveData(data)
+      data: data
     }
   }
-}
-
-// Clear Sensitive data
-function clearSensitiveData(data){
-  if(!data){
-    data = {};
-  }else{
-    if(!Array.isArray(data)){
-      delete data.password;
-    }else{
-      for(var i=0; i< data.length; i++) delete data[i].password;
-    }
-  }
-  return data;
 }
 
 // MD5 Encrypt
