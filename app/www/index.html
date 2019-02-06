@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Test App</title>
+    <link rel="stylesheet" href="https://unpkg.com/@ionic/core@4.0.0-rc.0/css/ionic.bundle.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    
+    <script src="components/chat_messages.js"></script>
+    <script src="components/config.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <ion-app>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Config</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-tabs>
+          
+          
+          <ion-router>
+            <ion-route url="" component="chat-messages-page"></ion-route>
+          </ion-router>
+          
+          <ion-tab-bar slot="bottom">
+            <ion-tab-button tab="messages">
+              <ion-label>Messages</ion-label>
+              <ion-icon name="chatbubbles"></ion-icon>
+              <ion-badge color="success">8</ion-badge>
+            </ion-tab-button>
+            <ion-tab-button tab="config">
+              <ion-label>Config</ion-label>
+              <ion-icon name="settings"></ion-icon>
+            </ion-tab-button>
+          </ion-tab-bar>
+        </ion-tabs>
+      </ion-content>
+    </ion-app>
+  </body>
+  <!--<script src="cordova.js"></script>-->
+  <script src="https://unpkg.com/@ionic/core@4.0.0-rc.0/dist/ionic.js"></script>
+</html>

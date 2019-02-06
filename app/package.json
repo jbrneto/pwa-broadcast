@@ -1,0 +1,17 @@
+{
+  "name": "hibrid-app",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jbrneto",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@ionic/v1-toolkit": "1.0.17"
+  }
+}

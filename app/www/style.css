@@ -1,0 +1,6 @@
+ion-tab-button > ion-badge {
+  font-size: 10px;
+}
+ion-refresher-content circle {
+  stroke: #3171e0;
+}
